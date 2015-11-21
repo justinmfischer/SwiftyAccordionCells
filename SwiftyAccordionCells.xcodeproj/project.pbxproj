@@ -12,7 +12,7 @@
 		4E8116E21BB4B5A70044D85F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E8116E01BB4B5A70044D85F /* Main.storyboard */; };
 		4E8116E41BB4B5A70044D85F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E8116E31BB4B5A70044D85F /* Assets.xcassets */; };
 		4E8116E71BB4B5A70044D85F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E8116E51BB4B5A70044D85F /* LaunchScreen.storyboard */; };
-		4E81170C1BB4B6D80044D85F /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81170B1BB4B6D80044D85F /* SwiftyAccordionCells.swift */; settings = {ASSET_TAGS = (); }; };
+		4E81170C1BB4B6D80044D85F /* SwiftyAccordionCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81170B1BB4B6D80044D85F /* SwiftyAccordionCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +98,7 @@
 				TargetAttributes = {
 					4E8116D81BB4B5A70044D85F = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 7MP7B3NZVA;
 					};
 				};
 			};
@@ -250,6 +251,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SwiftyAccordionCells/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftyAccordionCells;
@@ -261,6 +263,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SwiftyAccordionCells/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = SwiftyAccordionCells;
@@ -287,6 +290,7 @@
 				4E8117031BB4B5A70044D85F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
