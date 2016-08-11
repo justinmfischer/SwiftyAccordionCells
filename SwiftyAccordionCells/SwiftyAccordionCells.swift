@@ -44,12 +44,12 @@ class SwiftyAccordionCells {
     }
     
     private func toogleVisible(var headerIndex: Int, isHidden: Bool) {
-        headerIndex++
+        headerIndex += 1
         
         while headerIndex < self.items.count && !(self.items[headerIndex] is HeaderItem) {
             self.items[headerIndex].isHidden = isHidden
             
-            headerIndex++
+            headerIndex += 1
         }
     }
 }

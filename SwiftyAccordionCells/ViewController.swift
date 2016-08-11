@@ -21,6 +21,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         self.setup()
+        self.table.estimatedRowHeight = 45
+        self.table.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.table.reloadData()
     }
     
     func setup() {
@@ -66,7 +73,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         } else if (item.isHidden) {
             return 0
         } else {
-            return 44
+            return UITableViewAutomaticDimension
         }
     }
     
