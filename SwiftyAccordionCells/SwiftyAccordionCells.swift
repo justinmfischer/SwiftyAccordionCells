@@ -14,16 +14,18 @@ class SwiftyAccordionCells {
     class Item {
         var isHidden: Bool
         var value: AnyObject
+        var isChecked: Bool
         
-        init(_ hidden: Bool = true, value: AnyObject) {
+        init(_ hidden: Bool = true, value: AnyObject, checked: Bool = false) {
             self.isHidden = hidden
             self.value = value
+            self.isChecked = checked
         }
     }
     
     class HeaderItem: Item {
         init (value: AnyObject) {
-            super.init(false, value: value)
+            super.init(false, value: value, checked: false)
         }
     }
     

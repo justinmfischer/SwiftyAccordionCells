@@ -23,6 +23,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.setup()
         self.table.estimatedRowHeight = 45
         self.table.rowHeight = UITableViewAutomaticDimension
+        self.table.allowsMultipleSelection = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -36,12 +37,35 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 1"))
         self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 1"))
         self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 2"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 3"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 4"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 5"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 6"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 7"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 8"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 9"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 10"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 11"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 12"))
         self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 2"))
         self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 1"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 2"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 3"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 4"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 5"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 6"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 7"))
         self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 3"))
         self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 1"))
         self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 2"))
         self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 3"))
+        self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 4"))
+        self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 5"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 1"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 2"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 3"))
+        self.cells.append(SwiftyAccordionCells.Item(value: "Sub Item 4"))
+        self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 6"))
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,12 +75,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let item = self.cells.items[indexPath.row]
         let value = item.value as? String
+        let isChecked = item.isChecked as Bool
         
         if let cell = tableView.dequeueReusableCellWithIdentifier("cell") {
             cell.textLabel?.text = value
             
             if item as? SwiftyAccordionCells.HeaderItem != nil {
                 cell.backgroundColor = UIColor.lightGrayColor()
+                cell.accessoryType = .None
+            } else {
+                if isChecked {
+                    cell.accessoryType = .Checkmark
+                } else {
+                    cell.accessoryType = .None
+                }
             }
             
             return cell
@@ -110,9 +142,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if let selectedItemIndex = self.selectedItemIndex {
                     let previousCell = self.table.cellForRowAtIndexPath(NSIndexPath(forRow: selectedItemIndex, inSection: 0))
                     previousCell?.accessoryType = UITableViewCellAccessoryType.None
+                    cells.items[selectedItemIndex].isChecked = false
                 }
                 
                 self.selectedItemIndex = indexPath.row
+                cells.items[self.selectedItemIndex!].isChecked = true
             }
         }
     }
