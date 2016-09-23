@@ -9,14 +9,14 @@
 import Foundation
 
 class SwiftyAccordionCells {
-    private (set) var items = [Item]()
+    fileprivate (set) var items = [Item]()
     
     class Item {
         var isHidden: Bool
-        var value: AnyObject
+        var value: String
         var isChecked: Bool
         
-        init(_ hidden: Bool = true, value: AnyObject, checked: Bool = false) {
+        init(_ hidden: Bool = true, value: String, checked: Bool = false) {
             self.isHidden = hidden
             self.value = value
             self.isChecked = checked
@@ -24,12 +24,12 @@ class SwiftyAccordionCells {
     }
     
     class HeaderItem: Item {
-        init (value: AnyObject) {
+        init (value: String) {
             super.init(false, value: value, checked: false)
         }
     }
     
-    func append(item: Item) {
+    func append(_ item: Item) {
         self.items.append(item)
     }
     
@@ -37,15 +37,16 @@ class SwiftyAccordionCells {
         self.items.removeAll()
     }
     
-    func expand(headerIndex: Int) {
+    func expand(_ headerIndex: Int) {
         self.toogleVisible(headerIndex, isHidden: false)
     }
     
-    func collapse(headerIndex: Int) {
+    func collapse(_ headerIndex: Int) {
         self.toogleVisible(headerIndex, isHidden: true)
     }
     
-    private func toogleVisible(var headerIndex: Int, isHidden: Bool) {
+    private func toogleVisible(_ headerIndex: Int, isHidden: Bool) {
+        var headerIndex = headerIndex
         headerIndex += 1
         
         while headerIndex < self.items.count && !(self.items[headerIndex] is HeaderItem) {

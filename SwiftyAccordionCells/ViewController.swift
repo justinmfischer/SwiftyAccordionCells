@@ -17,16 +17,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var selectedHeaderIndex: Int?
     var selectedItemIndex: Int?
     
-    let cells = SwiftyAccordionCells()
+    var cells: SwiftyAccordionCells!
     
     override func viewDidLoad() {
+        cells = SwiftyAccordionCells()
         self.setup()
         self.table.estimatedRowHeight = 45
         self.table.rowHeight = UITableViewAutomaticDimension
         self.table.allowsMultipleSelection = true
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.table.reloadData()
     }
@@ -68,26 +69,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.cells.append(SwiftyAccordionCells.HeaderItem(value: "Title 6"))
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cells.items.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = self.cells.items[indexPath.row]
-        let value = item.value as? String
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = self.cells.items[(indexPath as NSIndexPath).row]
+        let value = item.value
         let isChecked = item.isChecked as Bool
         
-        if let cell = tableView.dequeueReusableCellWithIdentifier("cell") {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
             cell.textLabel?.text = value
             
             if item as? SwiftyAccordionCells.HeaderItem != nil {
-                cell.backgroundColor = UIColor.lightGrayColor()
-                cell.accessoryType = .None
+                cell.backgroundColor = UIColor.lightGray
+                cell.accessoryType = .none
             } else {
                 if isChecked {
-                    cell.accessoryType = .Checkmark
+                    cell.accessoryType = .checkmark
                 } else {
-                    cell.accessoryType = .None
+                    cell.accessoryType = .none
                 }
             }
             
@@ -97,8 +98,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return UITableViewCell()
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let item = self.cells.items[indexPath.row]
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = self.cells.items[(indexPath as NSIndexPath).row]
         
         if item is SwiftyAccordionCells.HeaderItem {
             return 60
@@ -109,15 +110,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let item = self.cells.items[indexPath.row]
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = self.cells.items[(indexPath as NSIndexPath).row]
         
         if item is SwiftyAccordionCells.HeaderItem {
             if self.selectedHeaderIndex == nil {
-                self.selectedHeaderIndex = indexPath.row
+                self.selectedHeaderIndex = (indexPath as NSIndexPath).row
             } else {
                 self.previouslySelectedHeaderIndex = self.selectedHeaderIndex
-                self.selectedHeaderIndex = indexPath.row
+                self.selectedHeaderIndex = (indexPath as NSIndexPath).row
             }
             
             if let previouslySelectedHeaderIndex = self.previouslySelectedHeaderIndex {
@@ -135,30 +136,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.table.endUpdates()
             
         } else {
-            if indexPath.row != self.selectedItemIndex {
-                let cell = self.table.cellForRowAtIndexPath(indexPath)
-                cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+            if (indexPath as NSIndexPath).row != self.selectedItemIndex {
+                let cell = self.table.cellForRow(at: indexPath)
+                cell?.accessoryType = UITableViewCellAccessoryType.checkmark
                 
                 if let selectedItemIndex = self.selectedItemIndex {
-                    let previousCell = self.table.cellForRowAtIndexPath(NSIndexPath(forRow: selectedItemIndex, inSection: 0))
-                    previousCell?.accessoryType = UITableViewCellAccessoryType.None
+                    let previousCell = self.table.cellForRow(at: IndexPath(row: selectedItemIndex, section: 0))
+                    previousCell?.accessoryType = UITableViewCellAccessoryType.none
                     cells.items[selectedItemIndex].isChecked = false
                 }
                 
-                self.selectedItemIndex = indexPath.row
+                self.selectedItemIndex = (indexPath as NSIndexPath).row
                 cells.items[self.selectedItemIndex!].isChecked = true
             }
         }
     }
     
-    @IBAction func enter(sender: AnyObject) {
+    @IBAction func enter(_ sender: AnyObject) {
         if let selectedItemIndex = self.selectedItemIndex {
-            let selectedItemValue = self.cells.items[selectedItemIndex].value as? String
+            let selectedItemValue = self.cells.items[selectedItemIndex].value
             
-            let alert = UIAlertController(title: "Current Selection", message: selectedItemValue, preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            let alert = UIAlertController(title: "Current Selection", message: selectedItemValue, preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
             
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         }
     }
 }
